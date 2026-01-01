@@ -1,0 +1,12 @@
+{
+  "name": "kaws-car",
+  "version": "1.0.0",
+  "description": "KAWS CAR - Location de Voiture au Maroc",
+  "scripts": {
+    "build": "cd frontend && yarn install && yarn build",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["car rental", "location voiture", "morocco", "maroc"],
+  "author": "YVSSΣR",
+  "license": "MIT"
+}
