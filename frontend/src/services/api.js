@@ -2,7 +2,9 @@
  * API service for backend communication
  */
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
+// Use relative URL for Vercel deployment (same domain)
+// Falls back to environment variable for local development
+const API_URL = import.meta.env.VITE_BACKEND_URL || '';
 
 /**
  * Fetch all cars from the backend
@@ -10,11 +12,11 @@ const API_URL = process.env.REACT_APP_BACKEND_URL;
 export const getCars = async () => {
   try {
     const response = await fetch(`${API_URL}/api/cars`);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch cars: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -29,14 +31,14 @@ export const getCars = async () => {
 export const getCarById = async (carId) => {
   try {
     const response = await fetch(`${API_URL}/api/cars/${carId}`);
-    
+
     if (!response.ok) {
       if (response.status === 404) {
         throw new Error('Car not found');
       }
       throw new Error(`Failed to fetch car: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -57,12 +59,12 @@ export const createBooking = async (bookingData) => {
       },
       body: JSON.stringify(bookingData),
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json();
       throw new Error(errorData.detail || `Failed to create booking: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -77,11 +79,11 @@ export const createBooking = async (bookingData) => {
 export const getBookings = async () => {
   try {
     const response = await fetch(`${API_URL}/api/bookings`);
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch bookings: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -96,14 +98,14 @@ export const getBookings = async () => {
 export const getBookingById = async (bookingId) => {
   try {
     const response = await fetch(`${API_URL}/api/bookings/${bookingId}`);
-    
+
     if (!response.ok) {
       if (response.status === 404) {
         throw new Error('Booking not found');
       }
       throw new Error(`Failed to fetch booking: ${response.statusText}`);
     }
-    
+
     const data = await response.json();
     return data;
   } catch (error) {
